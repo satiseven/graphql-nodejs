@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 const NOTES = gql`
   query NotesQuery {
@@ -9,9 +9,15 @@ const NOTES = gql`
 `;
 
 function App() {
+  const { loading, data, error } = useQuery(NOTES);
+  if (loading) return "loading...";
+  if (error) return `Error:${error.message}`;
   return (
     <div>
-      <h1>this is app</h1>
+      {data &&
+        data.notes.map((note, index) => {
+          return <h2 key={`note_${index}`}>{note.description}</h2>;
+        })}
     </div>
   );
 }
