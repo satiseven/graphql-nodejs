@@ -3,6 +3,9 @@ const typeDefs = gql`
   type Query {
     notes: [Note]!
   }
+  type Query {
+    athut: [Author]!
+  }
   union SearchResult = Author | Note
   type Author {
     id: ID!
